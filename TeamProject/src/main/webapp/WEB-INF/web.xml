@@ -9,4 +9,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <!-- 로그인 서블릿 매핑 -->
+
+
 </web-app>
