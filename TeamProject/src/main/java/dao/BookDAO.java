@@ -9,7 +9,7 @@ import util.DBUtil;
 public class BookDAO {
 
     public boolean insertBook(Book book) {
-        String sql = "INSERT INTO books VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, book.getBookId());
@@ -17,6 +17,7 @@ public class BookDAO {
             pstmt.setString(3, book.getAuthor());
             pstmt.setString(4, book.getPublisher());
             pstmt.setInt(5, book.getPrice());
+            pstmt.setString(6, book.getUserId());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (Exception e) {
@@ -38,7 +39,8 @@ public class BookDAO {
                     rs.getString("title"),
                     rs.getString("author"),
                     rs.getString("publisher"),
-                    rs.getInt("price")
+                    rs.getInt("price"),
+                    rs.getString("user_id")
                 );
                 list.add(book);
             }
@@ -64,7 +66,8 @@ public class BookDAO {
                     rs.getString("title"),
                     rs.getString("author"),
                     rs.getString("publisher"),
-                    rs.getInt("price")
+                    rs.getInt("price"),
+                    rs.getString("user_id")
                 );
                 list.add(book);
             }

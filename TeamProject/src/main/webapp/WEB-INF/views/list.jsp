@@ -1,5 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,7 +43,7 @@
             background: #f6f6f6;
             font-weight: 600;
         }
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             width: 180px;
             padding: 5px 7px;
             margin-bottom: 8px;
@@ -77,6 +76,7 @@
 <body>
     <h1>도서 목록</h1>
     <form class="search-bar" method="get" action="books">
+        <input type="hidden" name="action" value="search">
         <input type="text" name="search" placeholder="검색어 입력">
         <input type="submit" value="검색">
     </form>
@@ -91,15 +91,15 @@
         </tr>
         <c:forEach var="book" items="${bookList}">
             <tr>
-                <td>${book.id}</td>
+                <td>${book.bookId}</td>
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.publisher}</td>
                 <td>${book.price}</td>
                 <td>
-                    <form method="post" action="books">
+                    <form method="post" action="books" accept-charset="UTF-8">
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="${book.id}">
+                        <input type="hidden" name="id" value="${book.bookId}">
                         <button type="submit">삭제</button>
                     </form>
                 </td>

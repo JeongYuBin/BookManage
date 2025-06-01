@@ -7,20 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBUtil {
-    private static final String URL = "jdbc:mysql://localhost:3306/bookmanage?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
-
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        String url = "jdbc:oracle:thin:@localhost:1521:xe";
+        String user = "system";  // 사용자 설정에 맞게 수정
+        String password = "1234"; // 사용자 설정에 맞게 수정
+        return DriverManager.getConnection(url, user, password);
     }
 
     public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
