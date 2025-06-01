@@ -109,7 +109,7 @@
 
     <div class="form-container">
         <h2>도서 추가</h2>
-        <form method="post" action="books">
+        <form method="post" action="books" accept-charset="UTF-8">
             <input type="hidden" name="action" value="add">
             <div>
                 <label>Book ID: </label>
