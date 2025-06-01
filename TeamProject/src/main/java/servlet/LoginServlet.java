@@ -29,37 +29,25 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            int bookId = Integer.parseInt(request.getParameter("bookId"));
-            String title = request.getParameter("title");
-            String author = request.getParameter("author");
-            String publisher = request.getParameter("publisher");
-            int price = Integer.parseInt(request.getParameter("price"));
+        String userId = request.getParameter("userId");
+        String password = request.getParameter("password");
 
-            HttpSession session = request.getSession(false);
-            if (session == null || session.getAttribute("user") == null) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인이 필요합니다.");
-                return;
-            }
+        // 유효성 검사
+        if (userId == null || userId.isEmpty() ||
+            password == null || password.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "아이디와 비밀번호를 입력하세요.");
+            return;
+        }
 
-            // 세션에서 userId 가져오기
-            UserDTO user = (UserDTO) session.getAttribute("user");
-            String userId = user.getUserId();
+        // 로그인 시도
+        UserDTO user = userDAO.login(userId, password);
 
-            // 유효성 검사
-            if (title == null || title.isEmpty() ||
-                author == null || author.isEmpty() ||
-                publisher == null || publisher.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "모든 필드를 입력하세요.");
-                return;
-            }
-
-            Book book = new Book(bookId, title, author, publisher, price, userId);
-            bookDAO.insertBook(book);
-
-            response.sendRedirect("books");
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "숫자를 입력하세요.");
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            response.sendRedirect("books"); // 로그인 성공 시 책 목록 페이지로 이동
+        } else {
+            response.sendRedirect("login?error=1"); // 로그인 실패
         }
     }
 }
