@@ -2,6 +2,10 @@
 
 ### 해당 PROJ는 서버프로그램설계 수업에서 진행되었으며, Java와 Oracle을 통하여서 작업을 진행하였다
 
+![image](https://github.com/user-attachments/assets/f6f4c231-cc59-4b31-bfcb-4b3c1adcc14c)
+
+tomcat 8.5.99
+
 
 ### 유스케이스
 ![Image](https://github.com/user-attachments/assets/4de66257-493f-4e52-839e-80b29badf981)
